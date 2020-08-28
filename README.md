@@ -7,10 +7,10 @@ Anyway, creating my EEBO Bibliography in TEI was insultingly easy. I just grabbe
 
 The resulting TEI file isn’t quite complete because it doesn’t have a TEI Header, needed to define the prefixes I use to save space in the URLs, but (at 120 Mb) it’s too big for github. And it’s now available at https://app.box.com/s/r8sxc68239g6pen09blzmul93tqs8rbv for your xpathing pleasure.
 
-Here’s the table. The whole spreadsheet is a <listBibl> and each row becomes a <bibl>. I like simple solutions. I’m not proud of the <note type= "foo"s, but that’s the best I could think of without getting far too complicated.
+Here’s the table. The whole spreadsheet is a `<listBibl>` and each row becomes a `<bibl>`. I like simple solutions. I’m not proud of the `<note type= "foo">`s, but that’s the best I could think of without getting far too complicated.
 
 |--|--|--|
-|1|MARC identifier	|	@xml:id : prefixed by eebo:
+|1|MARC identifier|@xml:id : prefixed by eebo:
 |2|Image set identifier		|@facs : prefixed by eeboIs:
 |3	|	Publication type		|@type (always either Book or Issue)
 |4		|Collection 		|<series>
