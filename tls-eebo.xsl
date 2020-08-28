@@ -17,8 +17,12 @@
     <bibl>
         <xsl:attribute name="ref"><xsl:value-of select="concat('proquest:',substring-after(t:cell[17],'view/'))"/></xsl:attribute>
         <xsl:attribute name="xml:id"><xsl:value-of select="concat('eebo:',t:cell[1])"/></xsl:attribute>
-        <xsl:attribute name="facs"><xsl:value-of select="concat('eeboIs:',t:cell[2])"/></xsl:attribute>
-        <xsl:attribute name="type"><xsl:value-of select="t:cell[3]"/></xsl:attribute>
+        <xsl:if test="string-length(t:cell[2]) &gt; 1">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="concat('eeboIs:',t:cell[2])"/>
+            </xsl:attribute></xsl:if>
+        <xsl:attribute name="type">
+            <xsl:value-of select="t:cell[3]"/></xsl:attribute>
         <xsl:attribute name="xml:lang"><xsl:value-of select="t:doLang(t:cell[10])"/></xsl:attribute>
         <series><xsl:value-of select="t:cell[4]"/></series>
         <title><xsl:value-of select="t:cell[5]"/></title>
