@@ -9,22 +9,23 @@ The resulting TEI file isn’t quite complete because it doesn’t have a TEI He
 
 Here’s the table. The whole spreadsheet is a `<listBibl>` and each row becomes a `<bibl>`. I like simple solutions. I’m not proud of the `<note type= "foo">`s, but that’s the best I could think of without getting far too complicated.
 
+ Cell Number|Gloss|TEI equivalent
 |--|--|--|
 |1|MARC identifier|@xml:id : prefixed by eebo:|
 |2|Image set identifier		|@facs : prefixed by eeboIs:|
 |3	|	Publication type		|@type (always either Book or Issue)|
-|4		|Collection 		|<series>|
-|5		|Title		|<title>|
-|6 		|Author		|<author>|
-|7		|Publication Date		|<pubDate>|
-|8		|Publisher		|<publisher>|
-|9		|Country name		|<pubPlace>|
+|4		|Collection 		|`<series>`|
+|5		|Title		|`<title>`|
+|6 		|Author		|`<author>`|
+|7		|Publication Date		|`<pubDate>`|
+|8		|Publisher		|`<publisher>`|
+|9		|Country name		|`<pubPlace>`|
 |10		|Publication language		|@xml:lang gives ISO code equivalent; text goes in a `<note type= "langNote">`|
-|11		|Accession number		|<idno>|
-|12		|Source Library		|<note type= "sourceLibrary">|
-|13		|Full text image		|if « Y », <note type= »transcriptType »> contains « image »|
-|14		|Full text		|if « Y », <note type= »transcriptType »> contains « text »|
-|15		|USTC Classification		|<note type= »keywords »>|
+|11		|Accession number		|`<idno>`|
+|12		|Source Library		|`<note type= "sourceLibrary">`|
+|13		|Full text image		|if « Y », `<note type= "transcriptType">` contains "image"|
+|14		|Full text		|if « Y », `<note type= "transcriptType">` contains "text"|
+|15		|USTC Classification		|`<note type= "keywords">`|
 |16		|Release date		|Too boring to include|
 |17 		|URL		|@ref with prefix proquest:|
 
