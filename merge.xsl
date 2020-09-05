@@ -1,7 +1,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs h t"
     xmlns:h="http://www.w3.org/1999/xhtml" xmlns:t="http://www.tei-c.org/ns/1.0" version="2.0">
-
+    <!-- process tls-eebo-full.xml
+     merging in TCP id from extracted.xml and phase indicator from phases.xml 
+     -->
     <xsl:template match="bibl">
         <xsl:variable name="eeboId">
             <xsl:choose>
@@ -19,22 +21,29 @@
         </xsl:variable>
         <xsl:variable name="tcpId">
             <xsl:value-of
-                select="document('extracted.xml')/listBibl/bibl[@n eq $eeboId][@vid eq $vid]/@xml:id"/>
+                select="document('extracted.xml')/listBibl/bibl[@n eq $eeboId][@vid eq $vid]/@xml:id"
+            />
         </xsl:variable>
+
         <bibl>
-            <xsl:if test="string-length($tcpId) &gt; 1">
-                <xsl:attribute name="n">
-                    <xsl:value-of select="concat('tcp:', $tcpId)"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates select="@*"/>
-            <xsl:apply-templates/>
-            <xsl:if test="string-length($tcpId) &gt; 1">
-                <measure type="pp">
-                <xsl:value-of
-                    select="document('extracted.xml')/listBibl/bibl[@n eq $eeboId][@vid eq $vid]/@pp"
-                />
-            </measure></xsl:if>
+            <xsl:choose>
+                <xsl:when test="string-length($tcpId) &gt; 1">
+                    <xsl:attribute name="n">
+                        <xsl:value-of select="$tcpId"/>
+                    </xsl:attribute>
+                    <xsl:apply-templates select="@*"/>
+                    <xsl:apply-templates/>
+                    <measure type="pp">
+                        <xsl:value-of
+                            select="document('extracted.xml')/listBibl/bibl[@n eq $eeboId][@vid eq $vid]/@pp"
+                        />
+                    </measure>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="@*"/>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </bibl>
     </xsl:template>
 

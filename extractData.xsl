@@ -4,13 +4,19 @@
     <xsl:template match="listE">
  <listBibl>       <xsl:apply-templates select="E"/>
  </listBibl>   </xsl:template>
-    
+ <!-- extracts useful bits from eebodat.xml file and from phases.xml for re-use by merger -->   
     <xsl:template match="E">
         <bibl>
+            <xsl:variable name="tcpId">
+                <xsl:value-of select="IDG/@ID"/>               
+            </xsl:variable>
+            <xsl:variable name="phase">
+                <xsl:value-of select="document('phases.xml')/listB/b[@xml:id eq $tcpId]/substring-after(@n,'phase')"/>
+            </xsl:variable>
             <xsl:attribute name="xml:id">
-                <xsl:value-of select="IDG/@ID"/>
+                <xsl:value-of select="concat('tcp',$phase, ':', $tcpId)"/>
             </xsl:attribute>
-            <xsl:attribute name="n">
+               <xsl:attribute name="n">
                 <xsl:value-of select="IDG/BIBNO"/>
             </xsl:attribute>
             <xsl:attribute name="vid">
