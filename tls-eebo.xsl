@@ -14,8 +14,11 @@
 
 
 <xsl:template match="t:row">
+ <xsl:variable name="GOID">
+  <xsl:value-of select="substring-before(substring-after(t:cell[17],'view/'),'&#xD;')"/>
+ </xsl:variable>
     <bibl>
-        <xsl:attribute name="ref"><xsl:value-of select="concat('proquest:',substring-after(t:cell[17],'view/'))"/></xsl:attribute>
+        <xsl:attribute name="ref"><xsl:value-of select="concat('proquest:',$GOID)"/></xsl:attribute>
         <xsl:attribute name="xml:id"><xsl:value-of select="concat('eebo:',t:cell[1])"/></xsl:attribute>
         <xsl:if test="string-length(t:cell[2]) &gt; 1">
             <xsl:attribute name="facs">
