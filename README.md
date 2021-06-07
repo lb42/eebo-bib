@@ -119,8 +119,10 @@ To use the JISC Historical Datasets interface, the eebo catalogue number (i.e. t
  This repository also contains a small number of other XSLT scripts written for a variety of housekeeping purposes. Specifically :
  
  - `eebo-stats.xsl` counts numbers of eebo bib records of various kinds
- - `addIds.xsl` does post-processing tidy-up of phase 2  SGML files to generate TEI P5 XML versions 
  - `termFreq.xsl` produces a frequency table of the descriptive keywords supplied by Proquest 
+  - `getMeta.xsl` extracts minimal metadata (id, date, place, language) in csv format
  - `extractData.xsl` processes full eebodat1.xml file to extract data missing from Proquest file
- - `getMeta.xsl` extracts minimal metadata (id, date, place, language) in csv format
+- `addIds.xsl` does post-processing tidy-up of phase 2  SGML files to generate TEI P5 XML versions (see further 
+[last week's blog entry](https://foxglove.hypotheses.org/654) )
+ 
  
