@@ -3,7 +3,10 @@
  xmlns:h="http://www.w3.org/1999/xhtml" xmlns:t="http://www.tei-c.org/ns/1.0" version="2.0">
  <!-- process tls-eebo-tei.xml
      merging in some data from extracted.xml 
+     output indicated subset
      -->
+ <xsl:param name="subset">ALL</xsl:param>
+ 
  <xsl:template match="bibl">
   <xsl:variable name="eeboId">
    <xsl:choose>
@@ -15,24 +18,23 @@
     </xsl:otherwise>
    </xsl:choose>
   </xsl:variable>
+  
   <xsl:variable name="vid">
    <xsl:value-of select="substring-after(@facs, 'eeboIs:')"/>
   </xsl:variable>
 
-  <xsl:variable name="theRecord">
+<!--  <xsl:variable name="theRecord">
    <xsl:copy-of select="document('extracted.xml')/listBibl/bibl[@n eq $eeboId][@vid eq $vid]"/>
-  </xsl:variable>
+  </xsl:variable>-->
 
   <xsl:variable name="tcpId">
-   <!--      <xsl:value-of  select="$theRecord/@xml:id" />
--->
    <xsl:value-of
     select="document('extracted.xml')/listBibl/bibl[@n eq $eeboId][@vid eq $vid]/@xml:id"/>
   </xsl:variable>
 
-  <bibl>
    <xsl:choose>
     <xsl:when test="string-length($tcpId) &gt; 1">
+    <bibl>
      <xsl:attribute name="n">
       <xsl:value-of select="$tcpId"/>
      </xsl:attribute>
@@ -56,18 +58,21 @@
        <xsl:value-of select="."/>
       </idno>
      </xsl:for-each>
-      <xsl:apply-templates/>
-     <measure type="pp">
-      <xsl:value-of
-       select="document('extracted.xml')/listBibl/bibl[@n eq $eeboId][@vid eq $vid]/@pp"/>
-     </measure>
+     <!-- copy content -->
+     <xsl:apply-templates/>    
+    </bibl> <xsl:text>
+</xsl:text>
     </xsl:when>
-    <xsl:otherwise>
-     <xsl:apply-templates select="@*"/>
-     <xsl:apply-templates/>
-    </xsl:otherwise>
-   </xsl:choose>
-  </bibl>
+    
+    <xsl:when test="$subset eq 'TCP'"/> <!-- do nothing -->
+    
+    <xsl:otherwise><!-- no TCP id found: copy everything anyway -->
+    <bibl> <xsl:apply-templates select="@*"/>
+      <xsl:apply-templates/>
+    </bibl> <xsl:text>
+</xsl:text>
+   </xsl:otherwise>
+   </xsl:choose> 
  </xsl:template>
 
  <xsl:template match="* | @* | processing-instruction()">
@@ -76,7 +81,7 @@
   </xsl:copy>
  </xsl:template>
  <xsl:template match="text()">
-  <xsl:value-of select="."/>
+  <xsl:value-of select="normalize-space(.)"/>
   <!-- could normalize() here -->
  </xsl:template>
 </xsl:stylesheet>

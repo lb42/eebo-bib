@@ -4,14 +4,15 @@
    xmlns:t="http://www.tei-c.org/ns/1.0" 
    exclude-result-prefixes="xs t"
     version="2.0">
-    
+ 
+<!-- transforms xml dump of proquest tls spreadsheet into something more like TEI -->   
+  
     <xsl:template match="/">
         <listBibl>
             <xsl:apply-templates select="//t:row[position() &gt; 1]"/>
         </listBibl>
     </xsl:template>
     
-
 
 <xsl:template match="t:row">
  <xsl:variable name="GOID">

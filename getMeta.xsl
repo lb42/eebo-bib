@@ -4,11 +4,12 @@
     xmlns:h="http://www.w3.org/1999/xhtml" 
     xmlns:t="http://www.tei-c.org/ns/1.0" 
       version="2.0">
-<xsl:output media-type="text"/>
+ 
+<xsl:output media-type="text" omit-xml-declaration="yes"/>
     
     <xsl:template match="/">
         <xsl:text>eeboId, tcpId, date, dateSlot, placePub, lang
-        </xsl:text>
+</xsl:text>
       <xsl:apply-templates select="//bibl"/>
   </xsl:template>
     
@@ -18,8 +19,13 @@
         <xsl:variable name="dateString">
            <xsl:value-of select="pubDate"/>
         </xsl:variable>
-        <xsl:value-of select="$dateString"/><xsl:text>,</xsl:text>
-        <xsl:value-of select="t:doDate($dateString)"/><xsl:text>,</xsl:text>
+     <xsl:analyze-string select="$dateString" regex="(1\d\d\d)">
+      <xsl:matching-substring>
+     <xsl:value-of select="regex-group(1)"/>
+       <xsl:text>,</xsl:text>
+       <xsl:value-of select="t:doDate(regex-group(1))"/><xsl:text>,</xsl:text>
+      </xsl:matching-substring>
+     </xsl:analyze-string>  
         <xsl:value-of select="pubPlace"/><xsl:text>,</xsl:text>
         <xsl:value-of select="@xml:lang"/><xsl:text>
         </xsl:text>
