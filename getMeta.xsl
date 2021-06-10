@@ -16,16 +16,20 @@
     <xsl:template match="bibl">
     <xsl:value-of select="substring-after(@xml:id,'eebo:')"/><xsl:text>,</xsl:text>
         <xsl:value-of select="@n"/><xsl:text>,</xsl:text>
-        <xsl:variable name="dateString">
+        <xsl:variable name="dateStr">
            <xsl:value-of select="pubDate"/>
         </xsl:variable>
-     <xsl:analyze-string select="$dateString" regex="(1\d\d\d)">
-      <xsl:matching-substring>
-     <xsl:value-of select="regex-group(1)"/>
+     <xsl:variable name="firstYr">
+      <xsl:analyze-string select="$dateStr"
+       regex="(1[567]\d\d)">
+       <xsl:matching-substring>
+        <xsl:value-of select="regex-group(1)"/>
+       </xsl:matching-substring>
+      </xsl:analyze-string></xsl:variable>
+    
+     <xsl:value-of select="$firstYr[1]"/>
        <xsl:text>,</xsl:text>
-       <xsl:value-of select="t:doDate(regex-group(1))"/><xsl:text>,</xsl:text>
-      </xsl:matching-substring>
-     </xsl:analyze-string>  
+       <xsl:value-of select="t:doDate($firstYr[1])"/><xsl:text>,</xsl:text>
         <xsl:value-of select="pubPlace"/><xsl:text>,</xsl:text>
         <xsl:value-of select="@xml:lang"/><xsl:text>
         </xsl:text>
@@ -34,15 +38,7 @@
 
 <xsl:function name="t:doDate">
     <xsl:param name="dateStr"/>
-    <xsl:variable name="firstYr">
-<xsl:analyze-string select="$dateStr"
-        regex="1[567]\d\d">
-        <xsl:matching-substring>
-            <xsl:value-of select="."/>
-        </xsl:matching-substring>
-    </xsl:analyze-string></xsl:variable>
-<!--    <xsl:message><xsl:value-of select="$dateStr"/>-> <xsl:value-of select="substring($firstYr,1,4)"/></xsl:message>
---><xsl:choose>
+<xsl:choose>
    <xsl:when test="starts-with($dateStr,'15')">T0</xsl:when> 
     <xsl:when test="$dateStr lt '1640'">T1</xsl:when> 
     <xsl:when test="$dateStr lt '1689'">T2</xsl:when> 

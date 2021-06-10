@@ -123,6 +123,6 @@ To use the JISC Historical Datasets interface, the eebo catalogue number (i.e. t
   - `getMeta.xsl` extracts minimal metadata (id, date, place, language) in csv format
  - `extractData.xsl` processes full eebodat1.xml file to extract data missing from Proquest file
 - `addIds.xsl` does post-processing tidy-up of phase 2  SGML files to generate TEI P5 XML versions (see further 
-[last week's blog entry](https://foxglove.hypotheses.org/654) )
+[last month's blog entry](https://foxglove.hypotheses.org/654) )
  
  
